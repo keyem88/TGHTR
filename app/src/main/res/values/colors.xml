@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="mainColor1">#FF6447</color>
+    <color name="mainColor1Var">#FFA595</color>
+    <color name="mainColor1Var2">#F03C1A</color>
+    <color name="mainColor2">#FFC04A</color>
+    <color name="mainColor2Var">#FFDB98</color>
+    <color name="mainColor2Var2">#EFA61F</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>
