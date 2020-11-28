@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="login">Login</string>
-    <string name="get_a_new_account">Get a new account</string>
+    <string name="password">Passwort</string>
+    <string name="login">Einloggen</string>
+    <string name="register">Registrieren</string>
+    <string name="get_a_new_account">Registrieren</string>
     <string name="songtext">Songtext</string>
     <string name="songs">Songs</string>
-    <string name="profile">Profile</string>
-    <string name="settings">Settings</string>
+    <string name="profile">Profil</string>
+    <string name="settings">Einstellungen</string>
     <string name="logout">Logout</string>
+    <string name="conditions">Agree terms and conditions</string>
+
+    //Erfolgsmeldungen
+    <string name="SUCCESS_new_user">Benutzer erfolgreich erstellt.</string>
+
+    //Fehlerbeschreibungen
+    <string name="ERROR_different_password">Die beiden Passwörter stimmen nicht überein.</string>
 </resources>

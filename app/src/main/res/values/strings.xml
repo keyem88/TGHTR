@@ -3,27 +3,20 @@
     <string name="tgthr_logo">TGTHR Logo</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="passwordRepeat">Repeat Password</string>
     <string name="login">Login</string>
+    <string name="register">Register</string>
     <string name="get_a_new_account">Get a new account</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="songtext">Songtext</string>
     <string name="songs">Songs</string>
     <string name="profile">Profile</string>
     <string name="settings">Settings</string>
     <string name="logout">Logout</string>
+    <string name="conditions">Agree terms and conditions</string>
+
+    //Erfolgsmeldungen
+    <string name="SUCCESS_new_user">User created successfully.</string>
+
+    //Fehlerbeschreibungen
+    <string name="ERROR_different_password">The two passwords do not match.</string>
 </resources>
