@@ -4,62 +4,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Main2Activity">
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/main_tablayout"
+        android:id="@+id/main_tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/main_tab_songtext"
+            android:id="@+id/tab_songtext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/ic_songtext"
-            android:text="Texts" />
+            android:text="@string/songtext" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/main_tab_songs"
+            android:id="@+id/tab_song"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/ic_songs"
-            android:text="Songs" />
+            android:text="@string/songs" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/main_tab_profile"
+            android:id="@+id/tab_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/ic_profile"
-            android:text="Profile" />
+            android:text="@string/profile" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/main_tab_settings"
+            android:id="@+id/tab_settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/ic_settings"
-            android:text="Settings" />
+            android:text="@string/settings" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/main_viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/main_tablayout" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/main_tabLayout"
+        app:layout_constraintTop_toBottomOf="@+id/main_tabLayout"
+        app:layout_constraintVertical_bias="1.0" >
+
+    </androidx.viewpager2.widget.ViewPager2>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/main_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:foregroundGravity="right|bottom"
+        android:src="@drawable/ic_new"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:contentDescription="Make new Songtext" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.meisterk.tghtr;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,12 +27,14 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     EditText etEmail;
     EditText etPassword;
+    private final String tag = getClass().getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
         //Log.i("mAuth", mAuth.getUid());
 
         //Views zuordnen
@@ -39,8 +42,8 @@ public class LoginActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.login_et_email);
         etPassword = findViewById(R.id.login_et_password);
 
+        //Login Button
         btnLogin.setOnClickListener(v -> {
-
             signIn(etEmail.getText().toString(), etPassword.getText().toString());
         });
     }
@@ -49,34 +52,32 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         //User is already signed in?
-
         currentUser = mAuth.getCurrentUser();
         if(currentUser!=null){
-            setContentView(R.layout.activity_main);
+            Log.d(tag, currentUser.getEmail());
+            Toast.makeText(this, "Already logged in", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this, Main2Activity.class);
+            i.putExtra("currentUser", currentUser);
+            startActivity(i);
         }
     }
 
+    //LoginMethode
     protected void signIn(String email, String password) {
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-                                currentUser = mAuth.getCurrentUser();
-                                assert currentUser != null;
-                                updateUI(currentUser);
-                            } else{
-                                Log.i("signIn","Login Error", task.getException());
-                            }
-
+                            currentUser = mAuth.getCurrentUser();
+                            assert currentUser != null;
+                            updateUI(currentUser);
                         }
-
                     });
     }
-
     protected void updateUI(FirebaseUser user){
         if(user != null){
-            setContentView(R.layout.activity_main);
+            Intent i = new Intent(this, Main2Activity.class);
+            startActivity(i);
         }else{
             Toast.makeText(this, "Nutzer nicht bekannt", Toast.LENGTH_SHORT).show();
         }
