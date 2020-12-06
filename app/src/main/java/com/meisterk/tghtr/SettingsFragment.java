@@ -19,12 +19,16 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SettingsFragment extends Fragment {
 
     Button logoutButton;
+    Button deleteAccountButton;
     FirebaseAuth mAuth;
+    FirebaseUser currentUser;
 
     @Override
     public View onCreateView(
@@ -39,7 +43,9 @@ public class SettingsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         logoutButton = view.findViewById(R.id.btn_logout);
+        deleteAccountButton = view.findViewById(R.id.btn_delete_account);
         mAuth = FirebaseAuth.getInstance();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +53,20 @@ public class SettingsFragment extends Fragment {
                 mAuth.signOut();
                 Intent i = new Intent(getActivity(), LoginActivity.class);
                 startActivity(i);
+            }
+        });
+
+        deleteAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(currentUser!=null){
+                    currentUser.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            getActivity().finish();
+                        }
+                    });
+                }
             }
         });
 

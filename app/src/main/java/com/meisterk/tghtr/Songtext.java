@@ -7,6 +7,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -66,6 +67,9 @@ public class Songtext {
 
 
     public void save(){
+
+        Date now = new Date();
+
         Map<String, Object> toSave = new HashMap<>();
         Log.d("Songtext", "new Hashmap");
         toSave.put("title", this.getTitle());
@@ -76,6 +80,8 @@ public class Songtext {
 
         toSave.put("components", this.getComponents());
         Log.d("Songtext", "components" + this.getComponents());
+
+        toSave.put("creationDate", now);
 
 
         db.collection(collectionPath).document(this.id.toString()).set(toSave).addOnSuccessListener(new OnSuccessListener<Void>() {

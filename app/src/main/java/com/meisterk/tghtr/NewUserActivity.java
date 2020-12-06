@@ -45,19 +45,18 @@ public class NewUserActivity extends AppCompatActivity {
 
     //Passwort und Wiederholung auf Gleichheit prüfen
     private boolean samePassword(String password, String repeat){
+        Log.d(tag, Boolean.toString(password.equals(repeat)));
+        Log.d(tag, password + " " + repeat);
         return password.equals(repeat);
     }
 
     private void newUser(){
         mAuth = FirebaseAuth.getInstance();
-        if(samePassword(etPassword.toString(),etPasswordRepeat.toString())){
-            mAuth.createUserWithEmailAndPassword(etEmail.toString(), etPassword.toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    Log.d(tag, "User created" + task.getResult());
-                    Toast.makeText(NewUserActivity.this, getResources().getText(R.string.SUCCESS_new_user), Toast.LENGTH_SHORT).show();
-                    onDestroy();
-                }
+        if(samePassword(etPassword.getText().toString(),etPasswordRepeat.getText().toString())){
+            mAuth.createUserWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString()).addOnCompleteListener(task -> {
+                Log.d(tag, "User created" + task.getResult());
+                Toast.makeText(NewUserActivity.this, getResources().getText(R.string.SUCCESS_new_user), Toast.LENGTH_SHORT).show();
+                finish();
             });
         }else {
             Toast.makeText(this, getResources().getText(R.string.ERROR_different_password), Toast.LENGTH_SHORT).show();

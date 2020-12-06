@@ -70,22 +70,23 @@ public class SongtextFragment extends Fragment {
         TestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 sayHello().addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
                     public void onComplete(@NonNull Task<String> task) {
                         Log.d(tag, task.getResult());
                     }
                 });
+                */
 
 
-                /*
                 Songtext songtext = new Songtext("Alle meine Entchen", FirebaseAuth.getInstance().getCurrentUser());
-                Log.d("Songtext", songtext.toString());
+                Log.d(tag, songtext.toString());
                 songtext.save();
                 songtext.addComponent("Alle meine Entchen, schwimmen auf dem See");
                 songtext.save();
 
-                 */
+
             }
         });
     }

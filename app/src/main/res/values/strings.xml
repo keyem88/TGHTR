@@ -19,4 +19,5 @@
 
     //Fehlerbeschreibungen
     <string name="ERROR_different_password">The two passwords do not match.</string>
+    <string name="account_delete">Delete Account</string>
 </resources>
