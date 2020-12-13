@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.Continuation;
@@ -29,14 +30,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 
+import java.lang.reflect.Array;
+
 public class SongtextFragment extends Fragment {
 
     private RecyclerView songtextList;
-    private Button TestButton;
-    private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+    private LinearLayoutManager layoutManager;
     private FirebaseFunctions mFunctions;
+    private Array latestSongtexts;
     private final String tag = getClass().getName();
 
 
@@ -49,6 +51,7 @@ public class SongtextFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_songtext, container, false);
     }
 
+    /*
     private Task<String> sayHello(){
         return mFunctions.getHttpsCallable("sayHello")
                 .call()
@@ -60,35 +63,16 @@ public class SongtextFragment extends Fragment {
                     }
                 });
     };
+     */
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mFunctions = FirebaseFunctions.getInstance();
         songtextList= view.findViewById(R.id.songtext_list);
-        TestButton = view.findViewById(R.id.button);
-        TestButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*
-                sayHello().addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        Log.d(tag, task.getResult());
-                    }
-                });
-                */
-
-
-                Songtext songtext = new Songtext("Alle meine Entchen", FirebaseAuth.getInstance().getCurrentUser());
-                Log.d(tag, songtext.toString());
-                songtext.save();
-                songtext.addComponent("Alle meine Entchen, schwimmen auf dem See");
-                songtext.save();
-
-
-            }
-        });
+        layoutManager = new LinearLayoutManager(getContext());
+        songtextList.setLayoutManager(layoutManager);
     }
 
 }
