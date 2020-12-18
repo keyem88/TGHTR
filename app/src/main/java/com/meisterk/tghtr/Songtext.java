@@ -19,17 +19,29 @@ import java.util.UUID;
 
 public class Songtext {
 
+    public String getCollectionPath() {
+        return collectionPath;
+    }
+
     final String collectionPath = "songtexts";
 
-    final String title;
-    FirebaseUser creator;
+    private String title;
+    private FirebaseUser creator;
     final boolean approved;
-    final FirebaseFirestore db = FirebaseFirestore.getInstance();;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();;
     final String id;
     final String tag = getClass().getName();
     boolean saved;
 
     final private Map<String,String> components;
+
+    Songtext(String id){
+        this.id = id;
+        this.title = "";
+        this.creator = null;
+        this.approved = false;
+        this.components = null;
+    }
 
     Songtext(String title, FirebaseUser creator){
         this.id = "";
@@ -39,21 +51,6 @@ public class Songtext {
         this.approved = false;
         components = new HashMap<>();
         db = FirebaseFirestore.getInstance();
-    }
-
-    Songtext(String id){
-        DocumentReference docRef = db.collection(collectionPath).document(id);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isComplete()){
-                    DocumentSnapshot document = task.getResult();
-                    if(document.exists()){
-
-                    }
-                }
-            }
-        });
     }
 
     public String getTitle() {
@@ -87,7 +84,6 @@ public class Songtext {
                 ", components=" + components +
                 '}';
     }
-
 
     public void save(){
 

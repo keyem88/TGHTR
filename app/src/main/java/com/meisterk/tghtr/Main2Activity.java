@@ -13,18 +13,24 @@ import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Map;
+
 public class Main2Activity extends AppCompatActivity{
 
     TabLayout tabLayout;
     ViewPager2 viewPager;
     PagerAdapter adapter;
+    String[] latestSongtexts;
+    String tag = getClass().getName();
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             assert data != null;
-            String currentUser = data.getStringExtra("currentUser");
+            latestSongtexts = data.getStringArrayExtra("latestSongtexts");
         }
     }
 
@@ -38,6 +44,8 @@ public class Main2Activity extends AppCompatActivity{
 
         adapter = new PagerAdapter(this);
         viewPager.setAdapter(adapter);
+
+        Log.d(tag, Arrays.toString(latestSongtexts));
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
