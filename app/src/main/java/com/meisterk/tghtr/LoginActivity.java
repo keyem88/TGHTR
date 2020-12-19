@@ -21,6 +21,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Map;
+
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -30,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btnNewUser;
     EditText etEmail;
     EditText etPassword;
-    private final String tag = getClass().getName();
+    private final String tag = getClass().getName() + "DEBUG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,13 +84,20 @@ public class LoginActivity extends AppCompatActivity {
     protected void updateUI(FirebaseUser user){
         if(user != null){
             FirebaseFirestore db = FirebaseFirestore.getInstance();
-            DocumentReference reference = db.collection(collectionPath).document("songtexts");
+            DocumentReference reference = db.collection(collectionPath).document("latestSongtexts");
             Task<DocumentSnapshot> task = reference.get();
             Intent i = new Intent(this, Main2Activity.class);
             task.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    Log.d(tag,task.getResult().getData().toString());
+
+                    Map<String, Object> result = task.getResult().getData();
+                    String[] latestSongtexts = new String[result.size()];
+                    for (Map.Entry<String, Object> entry : result.entrySet()) {
+                        i
+                        Log.d(tag, entry.getValue().toString());
+                        latestSongtexts.
+                    }
                     startActivity(i);
                 }
             });
