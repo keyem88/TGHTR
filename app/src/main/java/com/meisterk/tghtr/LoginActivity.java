@@ -50,11 +50,11 @@ public class LoginActivity extends AppCompatActivity {
 
         //User is already signed in?
         currentUser = mAuth.getCurrentUser();
-        if(currentUser!=null){
+        if (currentUser != null) {
             Log.d(tag, currentUser.getEmail());
             Toast.makeText(this, "Already logged in", Toast.LENGTH_SHORT).show();
             updateUI(currentUser);
-        }else{
+        } else {
             //Login Button
             btnLogin.setOnClickListener(v -> {
                 signIn(etEmail.getText().toString(), etPassword.getText().toString());
@@ -71,18 +71,19 @@ public class LoginActivity extends AppCompatActivity {
 
     //LoginMethode
     protected void signIn(String email, String password) {
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            currentUser = mAuth.getCurrentUser();
-                            assert currentUser != null;
-                            updateUI(currentUser);
-                        }
-                    });
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        currentUser = mAuth.getCurrentUser();
+                        assert currentUser != null;
+                        updateUI(currentUser);
+                    }
+                });
     }
-    protected void updateUI(FirebaseUser user){
-        if(user != null){
+
+    protected void updateUI(FirebaseUser user) {
+        if (user != null) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             DocumentReference reference = db.collection(collectionPath).document("latestSongtexts");
             Task<DocumentSnapshot> task = reference.get();
@@ -90,24 +91,33 @@ public class LoginActivity extends AppCompatActivity {
             task.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
-                    Map<String, Object> result = task.getResult().getData();
-                    String[] latestSongtexts = new String[result.size()];
-                    for (Map.Entry<String, Object> entry : result.entrySet()) {
-                        i
-                        Log.d(tag, entry.getValue().toString());
-                        latestSongtexts.
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            Map<String, Object> result = document.getData();
+                            String[] latestSongtexts = new String[result.size()];
+                            i.putExtra("size", result.size());
+                            for (Map.Entry<String, Object> entry : result.entrySet()) {
+                                i.putExtra(entry.getKey().toString(), entry.getValue().toString());
+                            }
+                        } else {
+                            Log.d(tag, "No such document");
+                        }
+                    } else {
+                        Log.d(tag, "get failed with ", task.getException());
                     }
                     startActivity(i);
                 }
-            });
 
-        }else{
+
+            });
+        } else {
             Toast.makeText(this, "Nutzer nicht bekannt", Toast.LENGTH_SHORT).show();
         }
     }
 
-    protected void register(){
+
+    protected void register() {
         Intent i = new Intent(this, NewUserActivity.class);
         startActivity(i);
     }

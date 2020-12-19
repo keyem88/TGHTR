@@ -23,21 +23,16 @@ public class Main2Activity extends AppCompatActivity{
     ViewPager2 viewPager;
     PagerAdapter adapter;
     String[] latestSongtexts;
+    int latestSongtextsSize;
     String tag = getClass().getName();
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            assert data != null;
-            latestSongtexts = data.getStringArrayExtra("latestSongtexts");
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        Log.d("latestSongtexts", Arrays.toString(getLatestSongtexts()));
 
         tabLayout = findViewById(R.id.main_tabLayout);
         viewPager = findViewById(R.id.main_viewPager);
@@ -64,6 +59,16 @@ public class Main2Activity extends AppCompatActivity{
 
             }
         });
+    }
+
+    private String[] getLatestSongtexts(){
+        Intent i = getIntent();
+        int latestSongtextsSize = i.getIntExtra("latestSongtextsSize", 0);
+        String[] result = new String[latestSongtextsSize];
+        for(int index = 0; index<= latestSongtextsSize; index++){
+            result[index] = i.getStringExtra(Integer.toString(index));
+        }
+        return result;
     }
 
 }
